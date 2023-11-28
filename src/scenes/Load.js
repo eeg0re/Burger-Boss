@@ -19,7 +19,10 @@ class Load extends Phaser.Scene{
             loading.destroy();
         });
 
-
+        // set the load path
+        this.load.path = './assets'
+        this.load.bitmapFont('bold-pixel', '/fonts/Pixel-bold.png', '/fonts/Pixel-bold.xml');
+        
 
     }
 
