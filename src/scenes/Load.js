@@ -26,6 +26,9 @@ class Load extends Phaser.Scene{
         // load tilemaps 
         this.load.image('cityTilesImage', '/maps/city-tiles.png' );
         this.load.tilemapTiledJSON('lvl1JSON', '/BBlvl1.json');
+
+        // load sprites
+        this.load.image('tempChef', '/graphics/chef.png');
         
 
     }

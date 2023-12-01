@@ -9,12 +9,15 @@ class Level1 extends Phaser.Scene{
 
     create(){
         this.VEL = 100;
-        //this.add.bitmapText(game.config.width/2 , game.config.height/4, 'bold-pixel', 'WIP').setOrigin(0.5);
+        this.JUMPVELOCITY = -1000;
+
         // start placing the tilemap
         const map1 = this.add.tilemap('lvl1JSON');
+
         // connect to the image to the data
         // 1st parameter is name from tiled
         const tileset1 = map1.addTilesetImage('city', 'cityTilesImage');
+
         // 1st parameter is layer name from tiled
         // add background layer
         const cityBG = map1.createLayer('Background', tileset1, 0, 0);
@@ -22,8 +25,11 @@ class Level1 extends Phaser.Scene{
 
         // spawn player
         const playerSpawn = map1.findObject('spawns', obj => obj.name === 'player spawn');
-        this.player = this.add.rectangle(playerSpawn.x, playerSpawn.y, 32, 32, 0xebb734);
-        this.physics.add.existing(this.player);
+
+        // set world gravity 
+        this.physics.world.gravity.y = 1000;
+        this.player = new Chef(this, playerSpawn.x, playerSpawn.y, 'tempChef', 0, 'right');
+        
         // set world collision 
         this.player.body.setCollideWorldBounds(true);
 
@@ -42,25 +48,11 @@ class Level1 extends Phaser.Scene{
         this.physics.add.collider(this.player, platformLayer);
 
         // input
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.keys = this.input.keyboard.createCursorKeys();
     }
 
     update(){
-        this.direction = new Phaser.Math.Vector2(0)
-        if(this.cursors.left.isDown) {
-            this.direction.x = -1
-        } else if(this.cursors.right.isDown) {
-            this.direction.x = 1
-        }
-
-        if(this.cursors.up.isDown) {
-            this.direction.y = -1
-        } else if(this.cursors.down.isDown) {
-            this.direction.y = 1
-        }
-
-        this.direction.normalize()
-        this.player.body.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.chefFSM.step();
     }
 
 }

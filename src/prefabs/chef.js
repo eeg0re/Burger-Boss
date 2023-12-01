@@ -1,5 +1,5 @@
-class Slug extends Phaser.GameObjects.Sprite{
-    constructor(scene, x, y, texture, frame){
+class Chef extends Phaser.Physics.Arcade.Sprite{
+    constructor(scene, x, y, texture, frame, direction){
         super(scene, x, y, texture, frame);
 
         // add object to existing scene
@@ -26,9 +26,9 @@ class Slug extends Phaser.GameObjects.Sprite{
 // chef specific state classes
 class IdleState extends State {
     enter(scene, chef){
-        chef.setVelocity(0);
-        chef.anims.play(`walk-${chef.direction}`);
-        chef.anims.stop();
+        chef.setVelocity(0, 0);
+        //chef.anims.play(`walk-${chef.direction}`);
+        //chef.anims.stop();
     }
 
     execute(scene, chef){
@@ -89,14 +89,14 @@ class MoveState extends State{
         // normalize movement vector, update position, play animation 
         moveDirection.normalize();
         chef.setVelocity(chef.chefVelocity * moveDirection.x );
-        chef.anims.play(`walk-&{chef.direction}`, true);
+        //chef.anims.play(`walk-&{chef.direction}`, true);
     }
 }
 
 class HitState extends State{
     enter(scene, chef){
         chef.setVelocity(0);
-        chef.anims.play(`swing-${chef.direction}`);
+        //chef.anims.play(`swing-${chef.direction}`);
         chef.once(`animationcomplete`, ()=> {
             this.StateMachine.transition(`idle`);
         })
@@ -122,7 +122,7 @@ class JumpState extends State{
             }
 
             if (this.jumping){
-                chef.anims.play('jump', true);
+                //chef.anims.play('jump', true);
             }
             chef.once(`animationcomplete`, ()=> {
                 this.StateMachine.transition(`idle`);
