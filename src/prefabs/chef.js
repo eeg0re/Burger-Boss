@@ -8,7 +8,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
 
         // set custom chef properties
         this.direction = direction;
-        this.JUMPVELOCITY = -10;
+        this.JUMPVELOCITY = -10000;
         this.chefVelocity = 100;
         this.MAXJUMPS = 1;
         
@@ -128,7 +128,7 @@ class JumpState extends State{
                 
         //     }
             //chef.once(`animationcomplete`, ()=> {
-            chef.setVelocity( chef.chefVelocity * chef.direction, this.JUMPVELOCITY);
+            chef.setVelocityY( this.JUMPVELOCITY);
             scene.sound.play('sfx-jump');
             // REMOVE BELOW 
             console.log('jumping');
