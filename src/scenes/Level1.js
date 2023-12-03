@@ -9,7 +9,7 @@ class Level1 extends Phaser.Scene{
 
     create(){
         this.VEL = 100;
-        this.JUMPVELOCITY = -1000;
+        //this.JUMPVELOCITY = -1000;
 
         // start placing the tilemap
         const map1 = this.add.tilemap('lvl1JSON');
@@ -52,6 +52,7 @@ class Level1 extends Phaser.Scene{
     }
 
     update(){
+        // update the hero's state machine
         this.chefFSM.step();
     }
 

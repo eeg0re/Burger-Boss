@@ -17,6 +17,7 @@ class Menu extends Phaser.Scene{
     update(){
         if(this.cursors.space.isDown){
             this.scene.start('level1Scene');
+            this.sound.play('sfx-UI');
         }
     }
 

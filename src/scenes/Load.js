@@ -29,7 +29,10 @@ class Load extends Phaser.Scene{
 
         // load sprites
         this.load.image('tempChef', '/graphics/chef.png');
-        
+
+        // load sound
+        this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
+        this.load.audio('sfx-jump', '/audio/sfx_jump_07-80241.mp3');
 
     }
 
