@@ -16,15 +16,15 @@ class Level1 extends Phaser.Scene{
 
         // connect to the image to the data
         // 1st parameter is name from tiled
-        const tileset1 = map1.addTilesetImage('city', 'cityTilesImage');
+        const tileset1 = map1.addTilesetImage('new-city', 'newCityTiles');
 
         // 1st parameter is layer name from tiled
         // add background layer
-        const cityBG = map1.createLayer('Background', tileset1, 0, 0);
+        const cityBG = map1.createLayer('background', tileset1, 0, 0);
         const platformLayer = map1.createLayer('platforms', tileset1, 0, 0);
 
         // spawn player
-        const playerSpawn = map1.findObject('spawns', obj => obj.name === 'player spawn');
+        const playerSpawn = map1.findObject('Spawns', obj => obj.name === 'player spawn');
 
         // set world gravity 
         this.physics.world.gravity.y = 1000;

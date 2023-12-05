@@ -24,8 +24,8 @@ class Load extends Phaser.Scene{
         this.load.bitmapFont('bold-pixel', '/fonts/Pixel-bold.png', '/fonts/Pixel-bold.xml');
 
         // load tilemaps 
-        this.load.image('cityTilesImage', '/maps/city-tiles.png' );
-        this.load.tilemapTiledJSON('lvl1JSON', '/BBlvl1.json');
+        this.load.image('newCityTiles', '/maps/new-city.png');
+        this.load.tilemapTiledJSON('lvl1JSON', '/maps/BBlvl1.json');
 
         // load sprites
         this.load.image('tempChef', '/graphics/chef.png');
