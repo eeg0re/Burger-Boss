@@ -57,10 +57,10 @@ class IdleState extends State {
 class MoveState extends State{
     execute(scene, chef){
         // use destructuring to make local copy of keyboard object
-        const {left, right, space, shift} = scene.keys;
+        const {left, right, up, shift} = scene.keys;
 
         // transition to jump if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)){
+        if(Phaser.Input.Keyboard.JustDown(up)){
             this.stateMachine.transition('jump');
             return;
         }
@@ -136,7 +136,7 @@ class JumpState extends State{
             //});
     }
     execute(scene, chef){
-        const {left, right, space, shift} = scene.keys;
+        const {left, right, up, shift} = scene.keys;
         // transition to move if left or right is pressed
         if(left.isDown || right.isDown){
             this.stateMachine.transition('move');
