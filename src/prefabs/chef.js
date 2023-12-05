@@ -147,6 +147,10 @@ class JumpState extends State{
             this.stateMachine.transition('hit');
             return;
         }
+        if(Phaser.Input.Keyboard.JustDown(up)){
+            this.stateMachine.transition('jump');
+            return;
+        }
     }
 
 }
