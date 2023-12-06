@@ -9,8 +9,8 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         // set custom chef properties
         this.chefVelocity = 300;
         this.direction = direction;
-        this.ACCELERATION = 500;
-        this.DRAG = 600;
+        this.ACCELERATION = 400;
+        this.DRAG = 900;
         this.JUMPVELOCITY = -400;
         this.MAX_X_VEL = 300;
         this.MAX_Y_VAL = 5000;
@@ -30,7 +30,9 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
 // chef specific state classes
 class IdleState extends State {
     enter(scene, chef){
-        chef.body.setVelocityX(0);
+        //chef.body.setVelocityX(0);
+        chef.body.setAccelerationX(0);
+        chef.body.setDragX(chef.DRAG);
         //chef.anims.play(`walk-${chef.direction}`);
         //chef.anims.stop();
     }
@@ -46,7 +48,7 @@ class IdleState extends State {
         }
 
         // transition to jump if space is pressed
-        if(Phaser.Input.Keyboard.JustDown(space) && chef.body.touching.down){
+        if(Phaser.Input.Keyboard.JustDown(space) && chef.body.blocked.down){
             this.stateMachine.transition('jump');
             return;
         }
@@ -64,7 +66,7 @@ class MoveState extends State{
         const {left, right, space, shift} = scene.keys;
 
         // transition to jump if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)){
+        if(Phaser.Input.Keyboard.JustDown(space) && chef.body.blocked.down){
             this.stateMachine.transition('jump');
             return;
         }
@@ -93,7 +95,8 @@ class MoveState extends State{
 
         // normalize movement vector, update position, play animation 
         moveDirection.normalize();
-        chef.body.setVelocityX(chef.chefVelocity * moveDirection.x);
+        //chef.body.setVelocityX(chef.chefVelocity * moveDirection.x);
+        chef.body.setAccelerationX(moveDirection.x * chef.ACCELERATION);
         //chef.anims.play(`walk-&{chef.direction}`, true);
     }
 }
@@ -126,7 +129,7 @@ class JumpState extends State{
             this.stateMachine.transition('hit');
             return;
         }
-        if(Phaser.Input.Keyboard.JustDown(space)){
+        if(Phaser.Input.Keyboard.JustDown(space) && chef.body.blocked.down){
             this.stateMachine.transition('jump');
             return;
         }
