@@ -24,3 +24,4 @@ let game = new Phaser.Game(config);
 
 let cursors;
 let {height, width} = game.config;
+let player_score = 0; 

@@ -42,6 +42,9 @@ class Level1 extends Phaser.Scene{
         this.tomato = this.physics.add.sprite(tomatoSpawn.x, tomatoSpawn.y, 'tomato');
         this.tomato.body.setAllowGravity(false);
 
+        // spawn enemies
+        this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'ketchup', 0, 'left', this.cameras.main, this.player);
+
         
         // set world collision 
         this.player.body.setCollideWorldBounds(true);
