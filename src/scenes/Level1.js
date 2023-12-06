@@ -23,12 +23,25 @@ class Level1 extends Phaser.Scene{
         const cityBG = map1.createLayer('background', tileset1, 0, 0);
         const platformLayer = map1.createLayer('platforms', tileset1, 0, 0);
 
-        // spawn player
+        // grab spawn coords from the map
+        // player spawn
         const playerSpawn = map1.findObject('Spawns', obj => obj.name === 'player spawn');
+        // enemy spawns 
+        const ketchupSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 1');
+        // item spawns
+        const tomatoSpawn = map1.findObject('items', obj => obj.name === 'tomato spawn');
 
         // set world gravity 
         this.physics.world.gravity.y = 1000;
+        
+
+        // spawn player
         this.player = new Chef(this, playerSpawn.x, playerSpawn.y, 'tempChef', 0, 'right');
+
+        // spawn items 
+        this.tomato = this.physics.add.sprite(tomatoSpawn.x, tomatoSpawn.y, 'tomato');
+        this.tomato.body.setAllowGravity(false);
+
         
         // set world collision 
         this.player.body.setCollideWorldBounds(true);
@@ -46,6 +59,9 @@ class Level1 extends Phaser.Scene{
             collision: true
         });
         this.physics.add.collider(this.player, platformLayer);
+        this.physics.add.collider(this.player, this.tomato, ()=> {
+            this.tomato.destroy();
+        });
 
         // input
         this.keys = this.input.keyboard.createCursorKeys();
