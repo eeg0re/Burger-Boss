@@ -11,8 +11,8 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         this.direction = direction;
         this.ACCELERATION = 500;
         this.DRAG = 600;
-        this.JUMPVELOCITY = -10000;
-        this.MAX_X_VEL = 500;
+        this.JUMPVELOCITY = -500;
+        this.MAX_X_VEL = 300;
         this.MAX_Y_VAL = 5000;
         this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
         
@@ -98,6 +98,7 @@ class MoveState extends State{
     }
 }
 
+
 class HitState extends State{
     enter(scene, chef){
         //chef.anims.play(`swing-${chef.direction}`);
@@ -109,7 +110,8 @@ class HitState extends State{
 
 class JumpState extends State{
     enter(scene, chef){
-            chef.body.setVelocityY(this.JUMPVELOCITY);
+            chef.body.setVelocityY(chef.JUMPVELOCITY);
+            //chef.body.setVelocityY(2000);
             scene.sound.play('sfx-jump');
 
             // REMOVE BELOW 
