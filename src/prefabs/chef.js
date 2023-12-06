@@ -7,10 +7,16 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this);
 
         // set custom chef properties
+        this.chefVelocity = 500;
         this.direction = direction;
+        this.ACCELERATION = 500;
+        this.DRAG = 600;
         this.JUMPVELOCITY = -10000;
-        this.chefVelocity = 100;
-        this.MAXJUMPS = 1;
+        this.ACCELERATION = 500;
+        this.MAX_X_VEL = 500;
+        this.MAX_Y_VAL = 5000;
+        //this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
+        //this.MAXJUMPS = 1;
         
         // initialize state machine managing chef 
         scene.chefFSM = new StateMachine('idle', { 
@@ -57,10 +63,10 @@ class IdleState extends State {
 class MoveState extends State{
     execute(scene, chef){
         // use destructuring to make local copy of keyboard object
-        const {left, right, up, shift} = scene.keys;
+        const {left, right, space, shift} = scene.keys;
 
         // transition to jump if pressing space
-        if(Phaser.Input.Keyboard.JustDown(up)){
+        if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('jump');
             return;
         }
@@ -136,7 +142,7 @@ class JumpState extends State{
             //});
     }
     execute(scene, chef){
-        const {left, right, up, shift} = scene.keys;
+        const {left, right, space, shift} = scene.keys;
         // transition to move if left or right is pressed
         if(left.isDown || right.isDown){
             this.stateMachine.transition('move');
@@ -147,7 +153,7 @@ class JumpState extends State{
             this.stateMachine.transition('hit');
             return;
         }
-        if(Phaser.Input.Keyboard.JustDown(up)){
+        if(Phaser.Input.Keyboard.JustDown(space)){
             this.stateMachine.transition('jump');
             return;
         }
