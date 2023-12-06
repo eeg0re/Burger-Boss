@@ -14,7 +14,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         this.JUMPVELOCITY = -10000;
         this.MAX_X_VEL = 500;
         this.MAX_Y_VAL = 5000;
-        //this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
+        this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
         
         // initialize state machine managing chef 
         scene.chefFSM = new StateMachine('idle', { 
@@ -30,7 +30,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
 // chef specific state classes
 class IdleState extends State {
     enter(scene, chef){
-        chef.setVelocityX(0);
+        chef.body.setVelocityX(0);
         //chef.anims.play(`walk-${chef.direction}`);
         //chef.anims.stop();
     }
@@ -93,24 +93,23 @@ class MoveState extends State{
 
         // normalize movement vector, update position, play animation 
         moveDirection.normalize();
-        chef.setVelocityX(chef.chefVelocity * moveDirection.x);
+        chef.body.setVelocityX(chef.chefVelocity * moveDirection.x);
         //chef.anims.play(`walk-&{chef.direction}`, true);
     }
 }
 
 class HitState extends State{
     enter(scene, chef){
-        //chef.setVelocity(0);
         //chef.anims.play(`swing-${chef.direction}`);
-        chef.once(`animationcomplete`, ()=> {
+        //chef.once(`animationcomplete`, ()=> {
             this.stateMachine.transition(`idle`);
-        })
+        //})
     }
 }
 
 class JumpState extends State{
     enter(scene, chef){
-            chef.body.setVelocityY( this.JUMPVELOCITY);
+            chef.body.setVelocityY(this.JUMPVELOCITY);
             scene.sound.play('sfx-jump');
 
             // REMOVE BELOW 

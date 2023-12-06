@@ -27,7 +27,7 @@ class Level1 extends Phaser.Scene{
         const playerSpawn = map1.findObject('Spawns', obj => obj.name === 'player spawn');
 
         // set world gravity 
-        this.physics.world.gravity.y = 1000;
+        this.physics.world.gravity.y = 700;
         this.player = new Chef(this, playerSpawn.x, playerSpawn.y, 'tempChef', 0, 'right');
         
         // set world collision 
