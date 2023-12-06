@@ -11,7 +11,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         this.direction = direction;
         this.ACCELERATION = 500;
         this.DRAG = 600;
-        this.JUMPVELOCITY = -500;
+        this.JUMPVELOCITY = -400;
         this.MAX_X_VEL = 300;
         this.MAX_Y_VAL = 5000;
         this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
@@ -46,7 +46,7 @@ class IdleState extends State {
         }
 
         // transition to jump if space is pressed
-        if(Phaser.Input.Keyboard.JustDown(space)){
+        if(Phaser.Input.Keyboard.JustDown(space) && chef.body.touching.down){
             this.stateMachine.transition('jump');
             return;
         }
@@ -111,12 +111,7 @@ class HitState extends State{
 class JumpState extends State{
     enter(scene, chef){
             chef.body.setVelocityY(chef.JUMPVELOCITY);
-            //chef.body.setVelocityY(2000);
             scene.sound.play('sfx-jump');
-
-            // REMOVE BELOW 
-            console.log('jumping');
-            // REMOVE ABOVE 
             //});
     }
     execute(scene, chef){
