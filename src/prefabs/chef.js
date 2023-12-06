@@ -7,16 +7,14 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this);
 
         // set custom chef properties
-        this.chefVelocity = 500;
+        this.chefVelocity = 300;
         this.direction = direction;
         this.ACCELERATION = 500;
         this.DRAG = 600;
         this.JUMPVELOCITY = -10000;
-        this.ACCELERATION = 500;
         this.MAX_X_VEL = 500;
         this.MAX_Y_VAL = 5000;
         //this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
-        //this.MAXJUMPS = 1;
         
         // initialize state machine managing chef 
         scene.chefFSM = new StateMachine('idle', { 
@@ -32,7 +30,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
 // chef specific state classes
 class IdleState extends State {
     enter(scene, chef){
-        chef.setVelocity(0, 0);
+        chef.setVelocityX(0);
         //chef.anims.play(`walk-${chef.direction}`);
         //chef.anims.stop();
     }
@@ -95,14 +93,14 @@ class MoveState extends State{
 
         // normalize movement vector, update position, play animation 
         moveDirection.normalize();
-        chef.setVelocity(chef.chefVelocity * moveDirection.x, 0 );
+        chef.setVelocityX(chef.chefVelocity * moveDirection.x);
         //chef.anims.play(`walk-&{chef.direction}`, true);
     }
 }
 
 class HitState extends State{
     enter(scene, chef){
-        chef.setVelocity(0);
+        //chef.setVelocity(0);
         //chef.anims.play(`swing-${chef.direction}`);
         chef.once(`animationcomplete`, ()=> {
             this.stateMachine.transition(`idle`);
@@ -112,30 +110,9 @@ class HitState extends State{
 
 class JumpState extends State{
     enter(scene, chef){
-        // chef.isGrounded = chef.body.touching.down;
-        //     if(chef.isGrounded){
-        //         this.jumps = this.MAXJUMPS;
-        //         chef.jumping = false;
-        //         this.stateMachine.transition('idle');
-        //         return;
-        //     }
-        //     if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(scene.cursors.space, 150)){
-        //         chef.setVelocity( 0, this.JUMPVELOCITY);
-        //         chef.jumping = true;
-        //     }
-        //     if(chef.jumping && Phaser.Input.Keyboard.UpDuration(scene.cursors.space, 50)){
-        //         this.jumps--;
-        //         chef.jumping = false;
-        //         //scene.sound.play('sfx-jump');
-        //     }
-
-        //     if (this.jumping){
-        //         //chef.anims.play('jump', true);
-                
-        //     }
-            //chef.once(`animationcomplete`, ()=> {
-            chef.setVelocityY( this.JUMPVELOCITY);
+            chef.body.setVelocityY( this.JUMPVELOCITY);
             scene.sound.play('sfx-jump');
+
             // REMOVE BELOW 
             console.log('jumping');
             // REMOVE ABOVE 
