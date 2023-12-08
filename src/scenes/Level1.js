@@ -45,6 +45,13 @@ class Level1 extends Phaser.Scene{
         // spawn enemies
         this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'ketchup', 0, 'left', this.cameras.main, this.player);
 
+        // add enemies to group
+        this.enemies = this.add.group({
+            collideWorldBounds: true        // each enemy in the group will collide with world bounds
+
+        });
+        this.enemies.add(this.ketchup);
+
         
         // set world collision 
         this.player.body.setCollideWorldBounds(true);
@@ -62,6 +69,7 @@ class Level1 extends Phaser.Scene{
             collision: true
         });
         this.physics.add.collider(this.player, platformLayer);
+        this.physics.add.collider(this.ketchup, platformLayer)
         this.physics.add.collider(this.player, this.tomato, ()=> {
             this.tomato.destroy();
         });
@@ -73,6 +81,7 @@ class Level1 extends Phaser.Scene{
     update(){
         // update the hero's state machine
         this.chefFSM.step();
+        this.enemyFSM.step();
     }
 
 }

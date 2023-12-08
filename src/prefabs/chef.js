@@ -9,7 +9,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         // set custom chef properties
         this.chefVelocity = 300;
         this.direction = direction;
-        this.ACCELERATION = 500;
+        this.ACCELERATION = 700;
         this.DRAG = 1100;
         this.JUMPVELOCITY = -400;
         this.MAX_X_VEL = 300;
