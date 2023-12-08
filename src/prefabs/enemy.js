@@ -36,10 +36,12 @@ class ChaseState extends State {
         if(enemy.x < player.x){
             moveDirection.x = 1;
             enemy.direction = 'right';
+            enemy.resetFlip();
         }
         else if(enemy.x > player.x){
             moveDirection.x = -1;
             enemy.direction - 'left';
+            enemy.setFlip(true, false);
         }
         if ((enemy.body.blocked.left || enemy.body.blocked.right) && enemy.body.blocked.down ){
             enemy.body.setVelocityY(enemy.JUMPVEL);

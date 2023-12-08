@@ -31,6 +31,7 @@ class Load extends Phaser.Scene{
         this.load.image('tempChef', '/graphics/chef.png');
         this.load.image('tsChef', '/graphics/chef-title-screen.png');
         this.load.image('ketchup', '/graphics/new-ketchup1.png');
+        this.load.image('mustard', '/graphics/new-mustard1.png')
 
         // load item sprites
         this.load.image('tomato', '/graphics/items/tomato.png');

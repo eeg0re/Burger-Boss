@@ -28,6 +28,7 @@ class Level1 extends Phaser.Scene{
         const playerSpawn = map1.findObject('Spawns', obj => obj.name === 'player spawn');
         // enemy spawns 
         const ketchupSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 1');
+        const mustardSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 2');
         // item spawns
         const tomatoSpawn = map1.findObject('items', obj => obj.name === 'tomato spawn');
 
@@ -44,6 +45,7 @@ class Level1 extends Phaser.Scene{
 
         // spawn enemies
         this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'ketchup', 0, 'left', this.cameras.main, this.player);
+        //this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'mustard', 0, 'right', this.cameras.main, this.player)
 
         // add enemies to group
         this.enemies = this.add.group({
@@ -51,6 +53,11 @@ class Level1 extends Phaser.Scene{
 
         });
         this.enemies.add(this.ketchup);
+
+        // add items to group
+        this.items = this.add.group({
+            setAllowGravity: false
+        });
 
         
         // set world collision 
@@ -69,7 +76,7 @@ class Level1 extends Phaser.Scene{
             collision: true
         });
         this.physics.add.collider(this.player, platformLayer);
-        this.physics.add.collider(this.ketchup, platformLayer)
+        this.physics.add.collider(this.enemies, platformLayer)
         this.physics.add.collider(this.player, this.tomato, ()=> {
             this.tomato.destroy();
         });
