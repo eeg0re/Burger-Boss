@@ -45,7 +45,7 @@ class Level1 extends Phaser.Scene{
 
         // spawn enemies
         this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'ketchup', 0, 'left', this.cameras.main, this.player);
-        //this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'mustard', 0, 'right', this.cameras.main, this.player)
+        this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'mustard', 0, 'right', this.cameras.main, this.player)
 
         // add enemies to group
         this.enemies = this.add.group({
@@ -88,7 +88,7 @@ class Level1 extends Phaser.Scene{
     update(){
         // update the hero's state machine
         this.chefFSM.step();
-        this.enemyFSM.step();
+        //this.enemyFSM.step();
     }
 
 }

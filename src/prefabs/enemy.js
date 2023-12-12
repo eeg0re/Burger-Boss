@@ -4,7 +4,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        scene.enemyFSM = new StateMachine('inert', { 
+        // bind state machine to each instance of an enemy 
+        this.enemyFSM = new StateMachine('inert', { 
             inert: new InertState(),
             chase: new ChaseState(),
         }, [scene, this, camera, player])
@@ -13,6 +14,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.VELOCITY = 100;
         this.JUMPVEL = -400;
 
+    }
+
+    update(){
+        // update this enemy's state machine
+        this.enemyFSM.step();
     }
 }
 
@@ -35,12 +41,10 @@ class ChaseState extends State {
         let moveDirection = new Phaser.Math.Vector2(0,0);
         if(enemy.x < player.x){
             moveDirection.x = 1;
-            enemy.direction = 'right';
             enemy.resetFlip();
         }
         else if(enemy.x > player.x){
             moveDirection.x = -1;
-            enemy.direction - 'left';
             enemy.setFlip(true, false);
         }
         if ((enemy.body.blocked.left || enemy.body.blocked.right) && enemy.body.blocked.down ){
