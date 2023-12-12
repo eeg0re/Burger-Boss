@@ -9,7 +9,6 @@ class Level1 extends Phaser.Scene{
 
     create(){
         this.VEL = 100;
-        //this.JUMPVELOCITY = -1000;
 
         // start placing the tilemap
         const map1 = this.add.tilemap('lvl1JSON');
@@ -53,6 +52,7 @@ class Level1 extends Phaser.Scene{
 
         });
         this.enemies.add(this.ketchup);
+        this.enemies.add(this.mustard);
 
         // add items to group
         this.items = this.add.group({
@@ -76,10 +76,15 @@ class Level1 extends Phaser.Scene{
             collision: true
         });
         this.physics.add.collider(this.player, platformLayer);
-        this.physics.add.collider(this.enemies, platformLayer)
+        this.physics.add.collider(this.enemies, platformLayer);
+
+        // collisions between items and players
         this.physics.add.collider(this.player, this.tomato, ()=> {
             this.tomato.destroy();
         });
+        // collisions between enemies and players
+        this.physics.add.collider(this.player, this.enemies);
+
 
         // input
         this.keys = this.input.keyboard.createCursorKeys();
@@ -88,6 +93,8 @@ class Level1 extends Phaser.Scene{
     update(){
         // update the hero's state machine
         this.chefFSM.step();
+        this.mustard.enemyFSM.step();
+        this.ketchup.enemyFSM.step();
         //this.enemyFSM.step();
     }
 
