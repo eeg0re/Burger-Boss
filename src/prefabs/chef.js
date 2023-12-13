@@ -30,10 +30,9 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
 // chef specific state classes
 class IdleState extends State {
     enter(scene, chef){
-        //chef.body.setVelocityX(0);
         chef.body.setAccelerationX(0);
         chef.body.setDragX(chef.DRAG);
-        //chef.anims.play(`walk-${chef.direction}`);
+        chef.anims.play(`chef-idle`);
         //chef.anims.stop();
     }
 
@@ -87,27 +86,28 @@ class MoveState extends State{
         if(left.isDown){
             moveDirection.x = -1;
             chef.direction = 'left';
+            chef.setFlip(true, false);
         }
         else if (right.isDown){
             moveDirection.x = 1;
             chef.direction = 'right';
+            chef.resetFlip();
         }
 
         // normalize movement vector, update position, play animation 
         moveDirection.normalize();
-        //chef.body.setVelocityX(chef.chefVelocity * moveDirection.x);
         chef.body.setAccelerationX(moveDirection.x * chef.ACCELERATION);
-        //chef.anims.play(`walk-&{chef.direction}`, true);
+        chef.anims.play(`chef-walk`, true);
     }
 }
 
 
 class HitState extends State{
     enter(scene, chef){
-        //chef.anims.play(`swing-${chef.direction}`);
-        //chef.once(`animationcomplete`, ()=> {
+        chef.anims.play(`chef-hit`);
+        chef.once(`animationcomplete`, ()=> {
             this.stateMachine.transition(`idle`);
-        //})
+        })
     }
 }
 
@@ -115,6 +115,7 @@ class JumpState extends State{
     enter(scene, chef){
             chef.body.setVelocityY(chef.JUMPVELOCITY);
             scene.sound.play('sfx-jump');
+            chef.anims.play('chef-jump', true);
             //});
     }
     execute(scene, chef){

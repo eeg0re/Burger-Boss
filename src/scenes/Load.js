@@ -30,6 +30,10 @@ class Load extends Phaser.Scene{
         // load sprites
         this.load.image('tempChef', '/graphics/chef.png');
         this.load.image('tsChef', '/graphics/chef-title-screen.png');
+        this.load.spritesheet('chef', '/graphics/chef_spritesheet.png', {
+            frameWidth: 32, 
+            frameHeight: 38
+        });
 
         // load enemies from atlas
         this.load.atlas('enemies', '/graphics/enemies.png', '/graphics/enemies.json');
@@ -40,6 +44,8 @@ class Load extends Phaser.Scene{
         this.load.image('fries', '/graphics/items/fries.png');
         this.load.image('patty', '/graphics/items/patty.png');
         this.load.image('burger', '/graphics/items/burger.png');
+
+        // load spatula for hitting animation
 
         // load sound
         this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
@@ -70,6 +76,55 @@ class Load extends Phaser.Scene{
             frameRate: 3,
             repeat: -1
         });
+
+        this.anims.create({
+            key: 'pickle1-walk',
+            frames: this.anims.generateFrameNames('enemies', {
+                prefix: 'mustard',
+                start: 1,
+                end: 2,
+            }),
+            frameRate: 3,
+            repeat: -1
+        });
+
+        // chef animations
+        this.anims.create({
+            key: 'chef-idle',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('chef', {start: 0, end: 0})
+        });
+        this.anims.create({
+            key: 'chef-walk',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('chef', {start: 0, end: 2}),
+        });
+        this.anims.create({
+            key: 'chef-jump',
+            frameRate: 6,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('chef', {
+                frames: [ 3, 3, 3, 0]
+            }),
+        });
+        this.anims.create({
+            key: 'chef-death',
+            frameRate: 4,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('chef', {start: 4, end: 6}),  
+        });
+        this.anims.create({
+            key: 'chef-hit',
+            frameRate: 4,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('chef', {
+                frames: [7, 7, 7, 7]
+            }),  
+        });
+
+        
 
         this.scene.start('menuScene');
     }

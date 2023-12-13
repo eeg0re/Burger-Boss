@@ -44,7 +44,7 @@ class Level1 extends Phaser.Scene{
         
 
         // spawn player
-        this.player = new Chef(this, playerSpawn.x, playerSpawn.y, 'tempChef', 0, 'right');
+        this.player = new Chef(this, playerSpawn.x, playerSpawn.y, 'chef', 0, 'right');
 
         // spawn items 
         this.tomato = this.physics.add.sprite(tomatoSpawn.x, tomatoSpawn.y, 'tomato');
