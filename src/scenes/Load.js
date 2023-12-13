@@ -30,11 +30,16 @@ class Load extends Phaser.Scene{
         // load sprites
         this.load.image('tempChef', '/graphics/chef.png');
         this.load.image('tsChef', '/graphics/chef-title-screen.png');
-        this.load.image('ketchup', '/graphics/new-ketchup1.png');
-        this.load.image('mustard', '/graphics/new-mustard1.png')
+
+        // load enemies from atlas
+        this.load.atlas('enemies', '/graphics/enemies.png', '/graphics/enemies.json');
 
         // load item sprites
         this.load.image('tomato', '/graphics/items/tomato.png');
+        this.load.image('shake', '/graphics/items/shake.png');
+        this.load.image('fries', '/graphics/items/fries.png');
+        this.load.image('patty', '/graphics/items/patty.png');
+        this.load.image('burger', '/graphics/items/burger.png');
 
         // load sound
         this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
@@ -43,6 +48,29 @@ class Load extends Phaser.Scene{
     }
 
     create(){
+        // create all the animations we need
+        this.anims.create({
+            key: 'ketchup1-walk',
+            frames: this.anims.generateFrameNames('enemies', {
+                prefix: 'ketchup',
+                start: 1,
+                end: 2,
+            }),
+            frameRate: 3,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'mustard1-walk',
+            frames: this.anims.generateFrameNames('enemies', {
+                prefix: 'mustard',
+                start: 1,
+                end: 2,
+            }),
+            frameRate: 3,
+            repeat: -1
+        });
+
         this.scene.start('menuScene');
     }
 
