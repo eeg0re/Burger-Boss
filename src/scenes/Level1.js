@@ -8,6 +8,11 @@ class Level1 extends Phaser.Scene{
     }
 
     create(){
+        current_scene = "level1Scene";
+        this.scene.launch('UIScene');
+        // add UI
+        //this.scene.run('UIScene');
+        
         this.VEL = 100;
 
         // start placing the tilemap
@@ -58,7 +63,7 @@ class Level1 extends Phaser.Scene{
         this.items = this.add.group({
             setAllowGravity: false
         });
-
+        this.items.add(this.tomato);
         
         // set world collision 
         this.player.body.setCollideWorldBounds(true);
@@ -81,6 +86,7 @@ class Level1 extends Phaser.Scene{
         // collisions between items and players
         this.physics.add.collider(this.player, this.tomato, ()=> {
             this.tomato.destroy();
+            this.events.emit('addScoreItem');
         });
         // collisions between enemies and players
         this.physics.add.collider(this.player, this.enemies);
@@ -95,7 +101,6 @@ class Level1 extends Phaser.Scene{
         this.chefFSM.step();
         this.mustard.enemyFSM.step();
         this.ketchup.enemyFSM.step();
-        //this.enemyFSM.step();
     }
 
 }

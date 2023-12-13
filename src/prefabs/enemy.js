@@ -13,6 +13,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.direction = direction;
         this.VELOCITY = 100;
         this.JUMPVEL = -400;
+        this.points = 1000; 
 
     }
 
