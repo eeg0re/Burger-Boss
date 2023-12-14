@@ -67,6 +67,11 @@ class Level1 extends Phaser.Scene{
         this.enemies.add(this.ketchup);
         this.enemies.add(this.mustard);
 
+        // add enemies to an array 
+        this.enemy_array = [];
+        this.enemy_array.push(this.ketchup);
+        this.enemy_array.push(this.mustard);
+
         // add items to group
         this.items = this.add.group();
         this.items.add(this.tomato);
@@ -108,8 +113,9 @@ class Level1 extends Phaser.Scene{
         // update the hero's state machine
         this.player.update();
         this.chefFSM.step();
-        this.mustard.enemyFSM.step();
-        this.ketchup.enemyFSM.step();
+        this.enemy_array.forEach((enemy) => {
+            enemy.update();
+        });
     }
 
 }

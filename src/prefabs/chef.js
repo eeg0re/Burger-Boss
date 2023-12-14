@@ -129,7 +129,8 @@ class HitState extends State{
 
         // add a collider between the spatula and enemies
         scene.physics.add.collider(chef.spatula, scene.enemies, (spatula, enemy)=> {
-            //enemy.destroy();
+            enemy.destroy();
+            delete scene.enemy_array[scene.enemy_array.indexOf(enemy)];
             scene.events.emit('addScoreEnemy');
         });
 
