@@ -5,6 +5,9 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         // add object to existing scene
         scene.add.existing(this);
         scene.physics.add.existing(this);
+        
+        // adjust the chef's hitbox
+        this.body.setSize(26, 28).setOffset(1, 10);
 
         // set custom chef properties
         this.chefVelocity = 300;
@@ -105,8 +108,18 @@ class MoveState extends State{
 class HitState extends State{
     enter(scene, chef){
         chef.anims.play(`chef-hit`);
+        if(chef.direction = 'left'){
+            this.spatula = scene.physics.add.sprite(chef.x-20, chef.y, 'spatula');
+            this.spatula.setFlip(true, false);
+        }
+        else{
+            this.spatula = scene.physics.add.sprite(chef.x+20, chef.y, 'spatula');
+            this.spatula.resetFlip();
+        }
+        this.spatula.body.setAllowGravity(false);
         chef.once(`animationcomplete`, ()=> {
             this.stateMachine.transition(`idle`);
+            this.spatula.destroy();
         })
     }
 }

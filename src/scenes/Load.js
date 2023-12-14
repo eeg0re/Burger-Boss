@@ -46,6 +46,7 @@ class Load extends Phaser.Scene{
         this.load.image('burger', '/graphics/items/burger.png');
 
         // load spatula for hitting animation
+        this.load.image('spatula', '/graphics/spatula.png');
 
         // load sound
         this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
@@ -117,7 +118,7 @@ class Load extends Phaser.Scene{
         });
         this.anims.create({
             key: 'chef-hit',
-            frameRate: 4,
+            frameRate: 10,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('chef', {
                 frames: [7, 7, 7, 7]
