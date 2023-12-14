@@ -17,6 +17,8 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         this.JUMPVELOCITY = -400;
         this.MAX_X_VEL = 300;
         this.MAX_Y_VAL = 5000;
+
+        this.spatula; 
         this.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VAL);
         
         // initialize state machine managing chef 
@@ -27,6 +29,12 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
             hit: new HitState(),
             //death: new DeathState()
         }, [scene, this])
+    }
+    update(){
+        if(this.spatula){
+            this.spatula.x = this.direction == 'left' ? this.x-20 : this.x+20
+            this.spatula.y = this.y;
+        }
     }
 }
 
@@ -108,18 +116,21 @@ class MoveState extends State{
 class HitState extends State{
     enter(scene, chef){
         chef.anims.play(`chef-hit`);
-        if(chef.direction = 'left'){
-            this.spatula = scene.physics.add.sprite(chef.x-20, chef.y, 'spatula');
-            this.spatula.setFlip(true, false);
+        if(chef.direction == 'left'){
+            chef.spatula = scene.physics.add.sprite(chef.x-20, chef.y, 'spatula');
+            chef.spatula.setFlip(true, false);
         }
         else{
-            this.spatula = scene.physics.add.sprite(chef.x+20, chef.y, 'spatula');
-            this.spatula.resetFlip();
+            chef.spatula = scene.physics.add.sprite(chef.x+20, chef.y, 'spatula');
+            chef.spatula.resetFlip();
         }
-        this.spatula.body.setAllowGravity(false);
+        chef.spatula.body.setAllowGravity(false);
+        chef.spatula.body.setSize(25, 10).setOffset(15,20);
+
+        chef.spatula.y = chef.y;
         chef.once(`animationcomplete`, ()=> {
             this.stateMachine.transition(`idle`);
-            this.spatula.destroy();
+            chef.spatula.destroy();
         })
     }
 }
@@ -129,7 +140,6 @@ class JumpState extends State{
             chef.body.setVelocityY(chef.JUMPVELOCITY);
             scene.sound.play('sfx-jump');
             chef.anims.play('chef-jump', true);
-            //});
     }
     execute(scene, chef){
         const {left, right, space, shift} = scene.keys;

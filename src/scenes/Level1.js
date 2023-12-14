@@ -106,6 +106,7 @@ class Level1 extends Phaser.Scene{
 
     update(){
         // update the hero's state machine
+        this.player.update();
         this.chefFSM.step();
         this.mustard.enemyFSM.step();
         this.ketchup.enemyFSM.step();
