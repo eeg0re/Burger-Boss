@@ -132,6 +132,7 @@ class HitState extends State{
             enemy.destroy();
             delete scene.enemy_array[scene.enemy_array.indexOf(enemy)];
             scene.events.emit('addScoreEnemy');
+            scene.sound.play('sfx-enemy-dead');
         });
 
         chef.once(`animationcomplete`, ()=> {

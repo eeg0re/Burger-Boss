@@ -51,6 +51,9 @@ class Load extends Phaser.Scene{
         // load sound
         this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
         this.load.audio('sfx-jump', '/audio/sfx_jump_07-80241.mp3');
+        this.load.audio('sfx-loss', '/audio/loss.wav');
+        this.load.audio('sfx-item', '/audio/points.wav');
+        this.load.audio('sfx-enemy-dead', '/audio/enemy.wav');
 
     }
 

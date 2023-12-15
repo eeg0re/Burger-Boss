@@ -15,7 +15,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -35,5 +35,3 @@ let cursors;
 let {height, width} = game.config;
 let player_score = 0; 
 let current_scene = 'menuScene';
-let itemPts = 500;
-let enemyPts = 1000; 

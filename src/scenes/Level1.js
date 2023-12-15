@@ -104,12 +104,14 @@ class Level1 extends Phaser.Scene{
         // collisions between items and players
         this.physics.add.collider(this.player, this.items, (player, item)=> {
             item.destroy();
+            this.sound.play('sfx-item');
             this.events.emit('addScoreItem');
         });
 
         // collisions between enemies and players
         this.physics.add.collider(this.player, this.enemies, ()=>{
             this.player.anims.play('chef-death');
+            this.sound.play('sfx-loss');
             this.cameras.main.fadeOut(500);
             this.scene.stop('UIscene');
             this.time.delayedCall(500, ()=>{
@@ -129,8 +131,6 @@ class Level1 extends Phaser.Scene{
         this.enemy_array.forEach((enemy) => {
             enemy.update();
         });
-        // for debugging
-        console.log(player_score);
     }
 
 }
