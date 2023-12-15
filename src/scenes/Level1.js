@@ -126,11 +126,22 @@ class Level1 extends Phaser.Scene{
         this.physics.add.collider(this.player, platformLayer);
         this.physics.add.collider(this.enemies, platformLayer);
 
+
         // collisions between items and players
         this.physics.add.collider(this.player, this.items, (player, item)=> {
             item.destroy();
             this.sound.play('sfx-item');
             this.events.emit('addScoreItem');
+            // make a particle emitter 
+            this.emitter1 = this.add.particles(item.x, item.y, 'particle', {
+                speed: 250,
+                lifespan: 2000,
+                scale: {start: 1, end: 0},
+                gravityY: 150,
+                blendMode: 'ADD',
+                emitting: false
+            });
+            this.emitter1.explode(15);            
         });
 
         // collision between player and grill
@@ -144,7 +155,6 @@ class Level1 extends Phaser.Scene{
             this.player.anims.play('chef-death');
             this.sound.play('sfx-loss');
             this.cameras.main.fadeOut(500);
-            this.scene.stop('UIscene');
             this.time.delayedCall(500, ()=>{
                 this.scene.pause();
                 this.scene.start('GameOverScene');
