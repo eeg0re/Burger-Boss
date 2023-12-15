@@ -81,7 +81,7 @@ class Load extends Phaser.Scene{
         this.anims.create({
             key: 'pickle1-walk',
             frames: this.anims.generateFrameNames('enemies', {
-                prefix: 'mustard',
+                prefix: 'pickle',
                 start: 1,
                 end: 2,
             }),
@@ -112,7 +112,7 @@ class Load extends Phaser.Scene{
         });
         this.anims.create({
             key: 'chef-death',
-            frameRate: 4,
+            frameRate: 12,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('chef', {start: 4, end: 6}),  
         });

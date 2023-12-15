@@ -125,7 +125,7 @@ class HitState extends State{
             chef.spatula.resetFlip();
         }
         chef.spatula.body.setAllowGravity(false);
-        chef.spatula.body.setSize(25, 10).setOffset(15,20);
+        chef.spatula.body.setSize(32, 12).setOffset(15,20);
 
         // add a collider between the spatula and enemies
         scene.physics.add.collider(chef.spatula, scene.enemies, (spatula, enemy)=> {

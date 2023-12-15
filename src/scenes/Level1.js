@@ -8,6 +8,7 @@ class Level1 extends Phaser.Scene{
     }
 
     create(){
+        player_score = 0; 
         current_scene = "level1Scene";
         this.scene.launch('UIScene');
         // add UI
@@ -58,6 +59,7 @@ class Level1 extends Phaser.Scene{
         // spawn enemies
         this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'enemies', 'ketchup1', 'left', this.cameras.main, this.player);
         this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'enemies', 'mustard1', 'right', this.cameras.main, this.player)
+        this.pickle = new Enemy(this, pickleSpawn.x, pickleSpawn.y, 'enemies', 'pickle1', 'right', this.cameras.main, this.player); 
 
         // add enemies to group
         this.enemies = this.add.group({
@@ -66,11 +68,14 @@ class Level1 extends Phaser.Scene{
         });
         this.enemies.add(this.ketchup);
         this.enemies.add(this.mustard);
+        this.enemies.add(this.pickle);
 
         // add enemies to an array 
+        // use this array to know if any enemy's update function should be called
         this.enemy_array = [];
         this.enemy_array.push(this.ketchup);
         this.enemy_array.push(this.mustard);
+        this.enemy_array.push(this.pickle);
 
         // add items to group
         this.items = this.add.group();
@@ -103,7 +108,15 @@ class Level1 extends Phaser.Scene{
         });
 
         // collisions between enemies and players
-        this.physics.add.collider(this.player, this.enemies);
+        this.physics.add.collider(this.player, this.enemies, ()=>{
+            this.player.anims.play('chef-death');
+            this.cameras.main.fadeOut(500);
+            this.scene.stop('UIscene');
+            this.time.delayedCall(500, ()=>{
+                this.scene.pause();
+                this.scene.start('GameOverScene');
+            });
+        });
 
         // input
         this.keys = this.input.keyboard.createCursorKeys();
@@ -116,6 +129,8 @@ class Level1 extends Phaser.Scene{
         this.enemy_array.forEach((enemy) => {
             enemy.update();
         });
+        // for debugging
+        console.log(player_score);
     }
 
 }

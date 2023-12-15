@@ -40,14 +40,28 @@ class ChaseState extends State {
     }
     execute(scene, enemy, camera, player, frame){
         let moveDirection = new Phaser.Math.Vector2(0,0);
-        if(enemy.x < player.x){
-            moveDirection.x = 1;
-            enemy.resetFlip();
+        // pickle is facing the wrong way so we flip him differently
+        if(frame != 'pickle1'){
+            if(enemy.x < player.x){
+                moveDirection.x = 1;
+                enemy.resetFlip();
+            }
+            else if(enemy.x > player.x){
+                moveDirection.x = -1;
+                enemy.setFlip(true, false);
+            }
         }
-        else if(enemy.x > player.x){
-            moveDirection.x = -1;
-            enemy.setFlip(true, false);
+        else{
+            if(enemy.x < player.x){
+                moveDirection.x = 1;
+                enemy.setFlip(true, false);
+            }
+            else if(enemy.x > player.x){
+                moveDirection.x = -1;
+                enemy.resetFlip();
+            }
         }
+        // if the enemy is blocked on its sides, make it jump 
         if ((enemy.body.blocked.left || enemy.body.blocked.right) && enemy.body.blocked.down ){
             enemy.body.setVelocityY(enemy.JUMPVEL);
         }
