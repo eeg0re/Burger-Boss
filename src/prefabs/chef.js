@@ -7,7 +7,7 @@ class Chef extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this);
         
         // adjust the chef's hitbox
-        this.body.setSize(26, 28).setOffset(1, 10);
+        this.body.setSize(20, 28).setOffset(1, 10);
 
         // set custom chef properties
         this.chefVelocity = 300;

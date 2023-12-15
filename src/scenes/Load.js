@@ -28,7 +28,6 @@ class Load extends Phaser.Scene{
         this.load.tilemapTiledJSON('lvl1JSON', '/maps/BBlvl1.json');
 
         // load sprites
-        this.load.image('tempChef', '/graphics/chef.png');
         this.load.image('tsChef', '/graphics/chef-title-screen.png');
         this.load.spritesheet('chef', '/graphics/chef_spritesheet.png', {
             frameWidth: 32, 
@@ -45,12 +44,20 @@ class Load extends Phaser.Scene{
         this.load.image('patty', '/graphics/items/patty.png');
         this.load.image('burger', '/graphics/items/burger.png');
 
+        // load key sprites for controls scene
+        this.load.image('right', '/graphics/r-key.png');
+        this.load.image('left', '/graphics/l-key.png');
+        this.load.image('shift', '/graphics/shift-key.png');
+        this.load.image('space', '/graphics/space-key.png');
+
         // load spatula for hitting animation
         this.load.image('spatula', '/graphics/spatula.png');
 
         // load sound
         this.load.audio('sfx-UI', '/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
-        this.load.audio('sfx-jump', '/audio/sfx_jump_07-80241.mp3');
+        this.load.audio('sfx-jump', '/audio/jump.wav', {
+            volume: 0.25
+        });
         this.load.audio('sfx-loss', '/audio/loss.wav');
         this.load.audio('sfx-item', '/audio/points.wav');
         this.load.audio('sfx-enemy-dead', '/audio/enemy.wav');

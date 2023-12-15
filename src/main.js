@@ -8,14 +8,14 @@ let config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
-    scene: [Load, Menu, Credits, Level1, UI, GameOver],
+    scene: [Load, Menu, Credits, Control, Level1, UI, GameOver],
     render: {
         pixelArt: true
     },
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: false
         }
     },
     scale: {

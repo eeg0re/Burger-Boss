@@ -3,12 +3,8 @@ class Menu extends Phaser.Scene{
         super("menuScene");
     }
 
-    preload(){
-        // define cursors
-        this.cursors = this.input.keyboard.createCursorKeys();
-    }
-
     create(){
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.setBackgroundColor(0x000000);
         this.add.bitmapText(width/2, height/4 + 75, 'bold-pixel', 'Press SPACE to play').setOrigin(0.5);
         this.add.bitmapText(width/2 , height/4, 'bold-pixel', 'BURGER BOSS').setOrigin(0.5);
@@ -20,7 +16,7 @@ class Menu extends Phaser.Scene{
     update(){
         if(this.cursors.space.isDown){
             player_score = 0;
-            this.scene.start('level1Scene');
+            this.scene.start('controlScene');
             this.sound.play('sfx-UI');
         }
         if(this.cursors.shift.isDown){

@@ -35,6 +35,7 @@ class Level1 extends Phaser.Scene{
         const ketchupSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 1');
         const mustardSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 2');
         const pickleSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 3');
+        const ketchup2Spawn = map1.findObject('Spawns', obj => obj.name === 'enemy 4');
         // item spawns
         const tomatoSpawn = map1.findObject('items', obj => obj.name === 'tomato spawn');
         const shakeSpawn = map1.findObject('items', obj => obj.name === 'shake spawn');
@@ -60,6 +61,7 @@ class Level1 extends Phaser.Scene{
         this.ketchup = new Enemy(this, ketchupSpawn.x, ketchupSpawn.y, 'enemies', 'ketchup1', 'left', this.cameras.main, this.player);
         this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'enemies', 'mustard1', 'right', this.cameras.main, this.player)
         this.pickle = new Enemy(this, pickleSpawn.x, pickleSpawn.y, 'enemies', 'pickle1', 'right', this.cameras.main, this.player); 
+        this.ketchup2 = new Enemy(this, ketchup2Spawn.x, ketchup2Spawn.y, 'enemies', 'ketchup1', 'left', this.cameras.main, this.player);
 
         // add enemies to group
         this.enemies = this.add.group({
@@ -69,6 +71,8 @@ class Level1 extends Phaser.Scene{
         this.enemies.add(this.ketchup);
         this.enemies.add(this.mustard);
         this.enemies.add(this.pickle);
+        this.enemies.add(this.ketchup2);
+
 
         // add enemies to an array 
         // use this array to know if any enemy's update function should be called
@@ -76,6 +80,7 @@ class Level1 extends Phaser.Scene{
         this.enemy_array.push(this.ketchup);
         this.enemy_array.push(this.mustard);
         this.enemy_array.push(this.pickle);
+        this.enemy_array.push(this.ketchup2);
 
         // add items to group
         this.items = this.add.group();
@@ -110,6 +115,7 @@ class Level1 extends Phaser.Scene{
 
         // collisions between enemies and players
         this.physics.add.collider(this.player, this.enemies, ()=>{
+            this.playerDead = true;
             this.player.anims.play('chef-death');
             this.sound.play('sfx-loss');
             this.cameras.main.fadeOut(500);
@@ -131,12 +137,16 @@ class Level1 extends Phaser.Scene{
             this.levelSong.play();
         }
 
+        // bool for checking if player is dead
+        this.playerDead = false;
     }
 
     update(){
         // update the hero's state machine
         this.player.update();
-        this.chefFSM.step();
+        if(!this.playerDead){
+            this.chefFSM.step();
+        }
         this.enemy_array.forEach((enemy) => {
             enemy.update();
         });
