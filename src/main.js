@@ -35,3 +35,4 @@ let cursors;
 let {height, width} = game.config;
 let player_score = 0; 
 let current_scene = 'menuScene';
+let lvlSongPlaying = false;

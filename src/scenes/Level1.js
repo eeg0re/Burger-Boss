@@ -122,6 +122,15 @@ class Level1 extends Phaser.Scene{
 
         // input
         this.keys = this.input.keyboard.createCursorKeys();
+
+        //create the level music
+        this.levelSong = this.sound.add('level music'); 
+        this.levelSong.loop = true;
+        if(lvlSongPlaying == false){
+            lvlSongPlaying = true;
+            this.levelSong.play();
+        }
+
     }
 
     update(){

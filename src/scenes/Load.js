@@ -54,6 +54,7 @@ class Load extends Phaser.Scene{
         this.load.audio('sfx-loss', '/audio/loss.wav');
         this.load.audio('sfx-item', '/audio/points.wav');
         this.load.audio('sfx-enemy-dead', '/audio/enemy.wav');
+        this.load.audio('level music', '/audio/SLOWER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3');
 
     }
 
