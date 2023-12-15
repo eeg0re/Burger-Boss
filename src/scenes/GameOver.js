@@ -8,9 +8,15 @@ class GameOver extends Phaser.Scene{
         this.add.bitmapText(game.config.width/2, game.config.height/2 + 70, 'bold-pixel', `Your score: ${player_score}`).setOrigin(0.5).setScale(0.5).setCharacterTint(0, -1, true, 0xd1332e);
         this.add.bitmapText(game.config.width/2, game.config.height/2 + 140, 'bold-pixel', `Press space to restart`).setOrigin(0.5).setScale(0.5);
         this.add.bitmapText(game.config.width/2, game.config.height/2 + 210, 'bold-pixel', `Press shift for the main menu`).setOrigin(0.5).setScale(0.5);
+        
     }
 
     update(){
+        // check if player score is greater than high score
+        if(player_score > highScore){
+            highScore = player_score;
+            localStorage.setItem("burgerBossHighScore", highScore);
+        }
         if(this.keys.space.isDown){
             player_score = 0;
             this.scene.start('level1Scene');

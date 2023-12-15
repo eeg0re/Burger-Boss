@@ -1,6 +1,6 @@
 // Name: Igor Bessa
 // Title: Burger Boss
-// Credits
+// Major components used: Camera, tweens, particles, tilemaps, Bitmap Text usage, animations with spritesheets/atlases
 
 "use strict"
 
@@ -36,3 +36,8 @@ let {height, width} = game.config;
 let player_score = 0; 
 let current_scene = 'menuScene';
 let lvlSongPlaying = false;
+let highScore = 0; 
+let highScoreToDisplay = 0;
+if(localStorage.getItem('burgerBossHighScore') != null){
+    highScoreToDisplay = parseInt(localStorage.getItem("burgerBossHighScore"));
+}

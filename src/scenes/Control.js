@@ -26,9 +26,9 @@ class Control extends Phaser.Scene{
                 x: width+32,
                 stepX: 10,
                 onComplete: ()=>{
+                    this.sound.play('sfx-UI');
                     player_score = 0;
                     this.scene.start('level1Scene');
-                    this.sound.play('sfx-UI');
                 }
             });
         }

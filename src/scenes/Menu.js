@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene{
         this.add.bitmapText(width/2 , height/4, 'bold-pixel', 'BURGER BOSS').setOrigin(0.5);
         this.chef = this.add.image(width/2, height/2 + 100, 'tsChef').setScale(10);
 
+        this.add.bitmapText(width/2, height-110, 'bold-pixel', `HIGH SCORE: ${highScoreToDisplay}`).setOrigin(0.5).setScale(0.5);
+
         this.add.bitmapText(width/2, height-75, 'bold-pixel', 'Press shift to view credits').setOrigin(0.5).setScale(0.5);
     }
 
@@ -22,10 +24,9 @@ class Menu extends Phaser.Scene{
                 duration: 1000,
                 onComplete:()=>{
                     player_score = 0;
-                    this.scene.start('controlScene');
                     this.sound.play('sfx-UI');
+                    this.scene.start('controlScene');
                 }
-
             });
         }
         if(this.cursors.shift.isDown){
