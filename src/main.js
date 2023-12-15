@@ -8,7 +8,7 @@ let config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
-    scene: [Load, Menu, Credits, Control, Level1, UI, GameOver],
+    scene: [Load, Menu, Credits, Control, Level1, UI, GameWin, GameOver],
     render: {
         pixelArt: true
     },

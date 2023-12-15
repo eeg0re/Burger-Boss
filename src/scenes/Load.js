@@ -44,6 +44,9 @@ class Load extends Phaser.Scene{
         this.load.image('patty', '/graphics/items/patty.png');
         this.load.image('burger', '/graphics/items/burger.png');
 
+        // load end goal sprite
+        this.load.image('grill', '/graphics/grill.png');
+
         // load key sprites for controls scene
         this.load.image('right', '/graphics/r-key.png');
         this.load.image('left', '/graphics/l-key.png');

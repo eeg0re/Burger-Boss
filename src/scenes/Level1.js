@@ -36,10 +36,15 @@ class Level1 extends Phaser.Scene{
         const mustardSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 2');
         const pickleSpawn = map1.findObject('Spawns', obj => obj.name === 'enemy 3');
         const ketchup2Spawn = map1.findObject('Spawns', obj => obj.name === 'enemy 4');
+        const mustard2Spawn = map1.findObject('Spawns', obj => obj.name === 'enemy 5');
+        // end goal spawn
+        const grillSpawn = map1.findObject('Spawns', obj => obj.name === 'end');
         // item spawns
         const tomatoSpawn = map1.findObject('items', obj => obj.name === 'tomato spawn');
         const shakeSpawn = map1.findObject('items', obj => obj.name === 'shake spawn');
-        const frySpawn = map1.findObject('items', obj => obj.name === 'fry spawn')
+        const frySpawn = map1.findObject('items', obj => obj.name === 'fry spawn');
+        const burgerSpawn = map1.findObject('items', obj => obj.name === 'burger spawn');
+        const tomato2Spawn = map1.findObject('items', obj => obj.name === 'tomato spawn 2');
 
         // set world gravity 
         this.physics.world.gravity.y = 1000;
@@ -55,6 +60,14 @@ class Level1 extends Phaser.Scene{
         this.shake.body.setAllowGravity(false);
         this.fries = this.physics.add.sprite(frySpawn.x, frySpawn.y, 'fries');
         this.fries.body.setAllowGravity(false);
+        this.tomato2 = this.physics.add.sprite(tomato2Spawn.x, tomato2Spawn.y, 'tomato');
+        this.tomato2.body.setAllowGravity(false);
+        this.burger = this.physics.add.sprite(burgerSpawn.x, burgerSpawn.y, 'burger');
+        this.burger.body.setAllowGravity(false);
+
+        //spawn end goal
+        this.grill = this.physics.add.sprite(grillSpawn.x, grillSpawn.y, 'grill');
+        this.grill.body.setAllowGravity(false);
 
 
         // spawn enemies
@@ -62,6 +75,8 @@ class Level1 extends Phaser.Scene{
         this.mustard = new Enemy(this, mustardSpawn.x, mustardSpawn.y, 'enemies', 'mustard1', 'right', this.cameras.main, this.player)
         this.pickle = new Enemy(this, pickleSpawn.x, pickleSpawn.y, 'enemies', 'pickle1', 'right', this.cameras.main, this.player); 
         this.ketchup2 = new Enemy(this, ketchup2Spawn.x, ketchup2Spawn.y, 'enemies', 'ketchup1', 'left', this.cameras.main, this.player);
+        this.mustard2 = new Enemy(this, mustard2Spawn.x, mustard2Spawn.y, 'enemies', 'mustard1', 'right', this.cameras.main, this.player)
+
 
         // add enemies to group
         this.enemies = this.add.group({
@@ -72,6 +87,7 @@ class Level1 extends Phaser.Scene{
         this.enemies.add(this.mustard);
         this.enemies.add(this.pickle);
         this.enemies.add(this.ketchup2);
+        this.enemies.add(this.mustard2);
 
 
         // add enemies to an array 
@@ -81,12 +97,16 @@ class Level1 extends Phaser.Scene{
         this.enemy_array.push(this.mustard);
         this.enemy_array.push(this.pickle);
         this.enemy_array.push(this.ketchup2);
+        this.enemy_array.push(this.mustard2);
 
         // add items to group
         this.items = this.add.group();
         this.items.add(this.tomato);
         this.items.add(this.shake);
         this.items.add(this.fries);
+        this.items.add(this.tomato2);
+        this.items.add(this.burger);
+
         
         // set world collision for the player
         this.player.body.setCollideWorldBounds(true);
@@ -111,6 +131,11 @@ class Level1 extends Phaser.Scene{
             item.destroy();
             this.sound.play('sfx-item');
             this.events.emit('addScoreItem');
+        });
+
+        // collision between player and grill
+        this.physics.add.collider(this.player, this.grill, ()=>{
+            this.scene.start('gameWinScene');
         });
 
         // collisions between enemies and players
