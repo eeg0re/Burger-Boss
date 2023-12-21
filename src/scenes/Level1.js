@@ -11,8 +11,6 @@ class Level1 extends Phaser.Scene{
         player_score = 0; 
         current_scene = "level1Scene";
         this.scene.launch('UIScene');
-        // add UI
-        //this.scene.run('UIScene');
         
         this.VEL = 100;
 
@@ -80,7 +78,8 @@ class Level1 extends Phaser.Scene{
 
         // add enemies to group
         this.enemies = this.add.group({
-            collideWorldBounds: true        // each enemy in the group will collide with world bounds
+            collideWorldBounds: true,        // each enemy in the group will collide with world bounds
+            runChildUpdate: true
 
         });
         this.enemies.add(this.ketchup);
@@ -88,16 +87,6 @@ class Level1 extends Phaser.Scene{
         this.enemies.add(this.pickle);
         this.enemies.add(this.ketchup2);
         this.enemies.add(this.mustard2);
-
-
-        // add enemies to an array 
-        // use this array to know if any enemy's update function should be called
-        this.enemy_array = [];
-        this.enemy_array.push(this.ketchup);
-        this.enemy_array.push(this.mustard);
-        this.enemy_array.push(this.pickle);
-        this.enemy_array.push(this.ketchup2);
-        this.enemy_array.push(this.mustard2);
 
         // add items to group
         this.items = this.add.group();
@@ -182,9 +171,6 @@ class Level1 extends Phaser.Scene{
         if(!this.playerDead){
             this.chefFSM.step();
         }
-        this.enemy_array.forEach((enemy) => {
-            enemy.update();
-        });
     }
 
 }
