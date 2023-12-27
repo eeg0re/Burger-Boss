@@ -1,6 +1,7 @@
 // Name: Igor Bessa
 // Title: Burger Boss
 // Major components used: Camera, tweens, particles, tilemaps, Bitmap Text usage, animations with spritesheets/atlases
+// adding test comment
 
 "use strict"
 
